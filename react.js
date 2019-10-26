@@ -1,21 +1,25 @@
 'use strict';
 
-class MyComponent extends React.Component{
+class MyComponents extends React.Component{
+    constructor(props, context, updater){
+        super(props, context, updater);
+        this.state = {count: 0};
+    }
     render(){
-        return React.createElement(
-            'input',
-            {
-                type: 'text',
-                placeholder: 'input value',
-                onKeyPress: (e) => {
-                    if(e.key === 'Enter' && e.target.value) alert(e.target.value)
-                }
-            }
-        )
+        return [
+            React.createElement(
+                'input',
+                {
+                    type: 'text',
+                    onChange: (e) => this.setState({count: e.target.value.length})
+                },
+            ),
+            React.createElement('span', null, this.state.count),
+        ]
     }
 }
 
 ReactDOM.render(
-    React.createElement(MyComponent),
+    React.createElement(MyComponents),
     document.getElementById('main')
 );
